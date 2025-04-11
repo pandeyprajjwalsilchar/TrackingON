@@ -64,7 +64,7 @@
   const locRef = db.ref('laptop_location');
   locRef.on('value', (snapshot) => {
     const data = snapshot.val();
-    console.log("Firebase Data:", data);
+    // console.log("Firebase Data:", data);
     if (data && data.lat && data.lng) {
       const lat = data.lat;
       const lng = data.lng;
