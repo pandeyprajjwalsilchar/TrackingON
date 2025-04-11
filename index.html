@@ -30,7 +30,7 @@
 <h2 style="text-align:center;">📍 Live Laptop Location Tracker</h2>
 <p>Latitude: <span id="latitude"></span></p>
 <p>Longitude: <span id="longitude"></span></p>
-
+<p>Timestamp: <span id="timeshott"></span></p>
 <div id="map"></div>
 
 
@@ -64,15 +64,21 @@
   const locRef = db.ref('laptop_location');
   locRef.on('value', (snapshot) => {
     const data = snapshot.val();
-    // console.log("Firebase Data:", data);
+    console.log("Firebase Data:", data);
     if (data && data.lat && data.lng) {
       const lat = data.lat;
       const lng = data.lng;
-      
+      const timestamp = data.timestamp;
+      const jsFormattedTimestamp = timestamp.replace(" ", "T");
+      const readableTime = new Date(jsFormattedTimestamp).toLocaleString();
+
+      // Update timestamp
+      document.getElementById("timeshott").textContent = readableTime;
+
       // Show on HTML
       document.getElementById("latitude").textContent = lat;
       document.getElementById("longitude").textContent = lng;
-
+      
       if (marker) {
         marker.setLatLng([lat, lng]);
       } else {
